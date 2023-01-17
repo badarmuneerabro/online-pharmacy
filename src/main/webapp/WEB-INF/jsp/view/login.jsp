@@ -8,7 +8,7 @@
 	<div class="container text-center">
 		<h1>Login Please!!</h1>
 		
-		<form:form modelAttribute="loginForm" action="UserLogin" method="POST">
+		<form:form modelAttribute="loginForm" action="Login" method="POST">
 			<form:label path="email">Email: </form:label><br>
 			<form:input path="email"/><br>
 			

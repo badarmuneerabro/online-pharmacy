@@ -3,10 +3,12 @@ package com.pharmacy.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.pharmacy.model.User;
 import com.pharmacy.repos.UserRepository;
 
+@Service
 public class UserServiceImp implements UserService 
 {
 	@Autowired
@@ -26,7 +28,12 @@ public class UserServiceImp implements UserService
 	{
 		return this.userRepository.getUserByEmail(email);
 	}
-
+	
+	@Override
+	public User getUserByEmailAndPassword(String email, String password)
+	{
+		return this.userRepository.getUserByEmailAndPassword(email, password);
+	}
 	@Override
 	public List<User> getAllUsers() 
 	{
@@ -38,7 +45,6 @@ public class UserServiceImp implements UserService
 	{
 		return this.userRepository.saveUser(user);
 	}
-
 	@Override
 	public User updateUser(User user) 
 	{

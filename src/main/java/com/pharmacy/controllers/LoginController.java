@@ -1,41 +1,77 @@
 package com.pharmacy.controllers;
 
-import java.util.Map;
-
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.pharmacy.model.LoginForm;
+import com.pharmacy.model.User;
+import com.pharmacy.services.UserService;
 
 @Controller
 @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
 public class LoginController 
 {
+	@Autowired
+	private UserService userService;
 	
-	@RequestMapping(value = "/Login", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String loginPage(HttpSession session, @ModelAttribute("loginForm") LoginForm loginForm)
 	{
-		if(session.getAttribute("email") != null)
+		User user = (User) session.getAttribute("user");
+		String email = (String) session.getAttribute("email");
+		if(email != null)
 		{
-			return "home";
+			return "admin/home";
+		}
+		else if(user != null)
+		{
+			return "user/home";
+		}
+		return "login";
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(@ModelAttribute("loginForm") LoginForm loginForm, HttpSession session, HttpServletRequest request)
+	{
+		if(loginForm.getEmail().equals("admin@system.com") || loginForm.getPassword().equals("secret"))
+		{
+			session.setAttribute("email", loginForm.getEmail());
+			request.changeSessionId();
+			return "admin/home";
+		}
+		
+		User user = this.userService.getUserByEmail(loginForm.getEmail());
+		if(user != null)
+		{
+			session.setAttribute("user", user);
+			return "user/home";
 		}
 		
 		
 		return "login";
 	}
 	
-	@RequestMapping(value = "/UserLogin", method = RequestMethod.POST)
-	public String login(@ModelAttribute("loginForm") LoginForm loginForm)
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public View logout(HttpSession session)
 	{
-		if(loginForm.getEmail().equals("admin@system.com") && loginForm.getPassword().equals("secret"))
-		{
-			return "admin/home";
-		}
-		return "user/home";
+		session.invalidate();
+		return new RedirectView("/", true);
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 }
