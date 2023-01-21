@@ -8,8 +8,11 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-public class ApplicationInitializer implements WebApplicationInitializer {
+public class ApplicationInitializer implements WebApplicationInitializer{
 
 	public void onStartup(ServletContext servletContext) throws ServletException 
 	{
@@ -27,5 +30,7 @@ public class ApplicationInitializer implements WebApplicationInitializer {
 		register.addMapping("/");
 		register.setLoadOnStartup(1);
 	}
+	
+	
 
 }

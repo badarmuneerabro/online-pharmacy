@@ -5,21 +5,33 @@
 <title>Online Pharmacy|Login</title>
 </head>
 <body>
-	<div class="container text-center">
-		<h1>Login Please!!</h1>
-		
-		<form:form modelAttribute="loginForm" action="Login" method="POST">
-			<form:label path="email">Email: </form:label><br>
-			<form:input path="email"/><br>
-			
-			<form:label path="password">Password: </form:label><br>
-			<form:password path="password"/><br>
-			
-			<div class="container text-center">
-				<button type="submit" class="btn btn-outline-primary mt-2">Login</button>
-			</div>
-			
-		</form:form>
+	<div class="container">
+		<h1 align="center">Login Please!!</h1>
+
+		<div class="container">
+			<form:form cssClass="form-group" modelAttribute="loginForm"
+				action="process-login" method="POST">
+				<form:label path="email">Email Address: </form:label>
+				<br>
+				<form:input cssClass="form-control" path="email" />
+				<br>
+
+				<form:label path="password">Password: </form:label>
+				<br>
+				<form:password cssClass="form-control" path="password" />
+				<br>
+				<div class="container text-center">
+					<p>
+						Don't have an Account? <a href="<c:url value="/signup" />">Register</a>
+					</p>
+				</div>
+				<div class="container text-center">
+					<button type="submit" class="btn btn-outline-primary mt-2">Submit</button>
+				</div>
+
+			</form:form>
+
+		</div>
 	</div>
 </body>
 </html>

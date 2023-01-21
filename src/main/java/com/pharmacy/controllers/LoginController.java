@@ -1,6 +1,7 @@
 package com.pharmacy.controllers;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -17,56 +19,85 @@ import com.pharmacy.model.User;
 import com.pharmacy.services.UserService;
 
 @Controller
-@RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
 public class LoginController 
 {
 	@Autowired
 	private UserService userService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String loginPage(HttpSession session, @ModelAttribute("loginForm") LoginForm loginForm)
+	public View home(HttpSession session)
 	{
 		User user = (User) session.getAttribute("user");
 		String email = (String) session.getAttribute("email");
-		if(email != null)
-		{
-			return "admin/home";
-		}
-		else if(user != null)
-		{
-			return "user/home";
-		}
-		return "login";
-	}
-	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@ModelAttribute("loginForm") LoginForm loginForm, HttpSession session, HttpServletRequest request)
-	{
-		if(loginForm.getEmail().equals("admin@system.com") || loginForm.getPassword().equals("secret"))
-		{
-			session.setAttribute("email", loginForm.getEmail());
-			request.changeSessionId();
-			return "admin/home";
-		}
-		
-		User user = this.userService.getUserByEmail(loginForm.getEmail());
 		if(user != null)
 		{
-			session.setAttribute("user", user);
-			return "user/home";
+			return new RedirectView("/home", true);
 		}
 		
+		else if(email != null)
+		{
+			// redirect to admin home page
+			return new RedirectView("/home", true);
+		}
 		
+		return new RedirectView("/login", true);
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String loginPage(@ModelAttribute("loginForm") LoginForm form)
+	{
 		return "login";
 	}
 	
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public View logout(HttpSession session)
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	public ModelAndView homePage(HttpSession session)
 	{
-		session.invalidate();
+		User user = (User) session.getAttribute("user");
+		String email = (String) session.getAttribute("email");
+		if(user != null)
+		{
+			return new ModelAndView("user/home");
+		}
+		
+		else if(email != null)
+		{
+			// redirect to admin home page
+			return new ModelAndView("admin/home");
+		}
+		
+		return new ModelAndView(new RedirectView("/login", true));
+	}
+	@RequestMapping(value = "/process-login", method = RequestMethod.POST)
+	public ModelAndView home(HttpServletRequest request, LoginForm loginForm)
+	{
+		if(loginForm.getEmail().equals("admin@system.com") && loginForm.getPassword().equals("secret"))
+		{
+			HttpSession session = request.getSession();
+			session.setAttribute("email", loginForm.getEmail());
+			request.changeSessionId();
+			
+			return new ModelAndView(new RedirectView("/home", true));
+		}
+		
+		User user = this.userService.getUserByEmailAndPassword(loginForm.getEmail(), loginForm.getPassword());
+		
+		if(user != null)
+		{
+			HttpSession session = request.getSession();
+			session.setAttribute("user", user);
+			request.changeSessionId();
+			return new ModelAndView(new RedirectView("/home", true));
+		}
+		
+		return new ModelAndView(new RedirectView("/login", true));
+	}
+	
+	@RequestMapping(value = "logout", method = RequestMethod.GET)
+	public View logout(HttpServletRequest request)
+	{
+		request.getSession().invalidate();
 		return new RedirectView("/", true);
 	}
-
 	public UserService getUserService() {
 		return userService;
 	}

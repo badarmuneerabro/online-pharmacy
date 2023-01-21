@@ -117,6 +117,11 @@ public class UserRepositoryImp implements UserRepository {
 		String query = "UPDATE USER_DETAILS SET FIRST_NAME=?, LAST_NAME=?, ADDRESS=?, PASSWORD=? WHERE EMAIL=?;";
 		PreparedStatement statement = Connect.getInstance().getPreparedStatement(query);
 		try {
+			statement.setString(1, user.getFirstName());
+			statement.setString(2, user.getLastName());
+			statement.setString(3, user.getAddress());
+			statement.setString(4, user.getPassword());
+			statement.setString(5, user.getEmail());
 			statement.executeUpdate();
 			return user;
 		} catch (SQLException e) {
@@ -131,6 +136,7 @@ public class UserRepositoryImp implements UserRepository {
 		String query = "DELETE FROM USER_DETAILS WHERE EMAIL=?;";
 		PreparedStatement statement = Connect.getInstance().getPreparedStatement(query);
 		try {
+			statement.setString(1, email);
 			return statement.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

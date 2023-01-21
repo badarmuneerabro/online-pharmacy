@@ -30,7 +30,7 @@ public class MedicineRepositoryImp implements MedicinRepository
 				medicine.setCatgory(rs.getString("CATEGORY"));
 				medicine.setCompany(rs.getString("COMPANY"));
 				medicine.setCost(rs.getDouble("COST"));
-				medicine.setDescription(rs.getString("DESC"));
+				medicine.setDescription(rs.getString("DESCRIPTION"));
 				medicine.setName(rs.getString("NAME"));
 				
 				return medicine;
@@ -58,7 +58,7 @@ public class MedicineRepositoryImp implements MedicinRepository
 				medicine.setCatgory(rs.getString("CATEGORY"));
 				medicine.setCompany(rs.getString("COMPANY"));
 				medicine.setCost(rs.getDouble("COST"));
-				medicine.setDescription(rs.getString("DESC"));
+				medicine.setDescription(rs.getString("DESCRIPTION"));
 				medicine.setName(rs.getString("NAME"));
 				
 				list.add(medicine);
@@ -75,9 +75,16 @@ public class MedicineRepositoryImp implements MedicinRepository
 	@Override
 	public Medicine updateMedicine(Medicine medicine) 
 	{
-		String query = "UPDATE MEDICINE SET CATEGORY=?, COMAPNY=?, COST=?, DESC=?, NAME=? WHERE id=?;";
+		//String query = "UPDATE USER_DETAILS SET FIRST_NAME=?, LAST_NAME=?, ADDRESS=?, PASSWORD=? WHERE EMAIL=?;";
+		String query = "UPDATE medicine SET CATEGORY=?, NAME=?, DESCRIPTION=?, COMPANY=?, COST=? WHERE ID=?;";
 		PreparedStatement statement = Connect.getInstance().getPreparedStatement(query);
 		try {
+			statement.setString(1, medicine.getCatgory());
+			statement.setString(2, medicine.getName());
+			statement.setString(3, medicine.getDescription());
+			statement.setString(4, medicine.getCompany());
+			statement.setDouble(5, medicine.getCost());
+			statement.setInt(6, medicine.getId());
 			statement.executeUpdate();
 			return medicine;
 		} catch (SQLException e) {
@@ -95,6 +102,7 @@ public class MedicineRepositoryImp implements MedicinRepository
 		PreparedStatement statement = Connect.getInstance().getPreparedStatement(query);
 		
 		try {
+			statement.setInt(1, id);
 			return statement.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -107,9 +115,14 @@ public class MedicineRepositoryImp implements MedicinRepository
 	@Override
 	public Medicine saveMedicine(Medicine medicine) 
 	{
-		String query = "INSERT INTO MEDICINE(CATEGORY, COMPANY, COST, DESC, NAME) VALUES(?, ?, ?, ?, ?);";
+		String query = "INSERT INTO MEDICINE(CATEGORY, COMPANY, COST, DESCRIPTION, NAME) VALUES(?, ?, ?, ?, ?);";
 		PreparedStatement statement = Connect.getInstance().getPreparedStatement(query);
 		try {
+			statement.setString(1, medicine.getCatgory());
+			statement.setString(2, medicine.getCompany());
+			statement.setDouble(3, medicine.getCost());
+			statement.setString(4, medicine.getDescription());
+			statement.setString(5, medicine.getName());
 			statement.executeUpdate();
 			return medicine;
 		} catch (SQLException e) {

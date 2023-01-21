@@ -4,11 +4,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @ComponentScan(basePackages = {"com.pharmacy.services", "com.pharmacy.repos"})
-public class RootContextConfiguration 
+public class RootContextConfiguration implements WebMvcConfigurer
 {
 	@Bean
 	public ViewResolver getViewResolver()
@@ -19,4 +21,8 @@ public class RootContextConfiguration
 		
 		return resolver;
 	}
+	
+	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/*").addResourceLocations("/resources/");
+    }
 }

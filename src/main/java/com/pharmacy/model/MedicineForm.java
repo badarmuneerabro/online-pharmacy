@@ -1,7 +1,6 @@
 package com.pharmacy.model;
 
-
-public class Medicine 
+public class MedicineForm 
 {
 	private int id;
 	private String name;
@@ -11,11 +10,11 @@ public class Medicine
 	private String catgory;
 	
 	
-	public Medicine() {
+	public MedicineForm() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Medicine(String name, String description, double cost, String company, String catgory) {
+	public MedicineForm(String name, String description, double cost, String company, String catgory) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -59,6 +58,4 @@ public class Medicine
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	
 }

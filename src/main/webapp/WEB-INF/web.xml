@@ -19,6 +19,11 @@
 			<url-pattern>/WEB-INF/jsp/view/admin/*</url-pattern>
 			<include-prelude>/WEB-INF/jsp/admin-nav.jspf</include-prelude>
 		</jsp-property-group>
+		
+		<jsp-property-group>
+			<url-pattern>/WEB-INF/jsp/view/user/*</url-pattern>
+			<include-prelude>/WEB-INF/jsp/user-nav.jspf</include-prelude>
+		</jsp-property-group>
   	
   	</jsp-config>
   <session-config>

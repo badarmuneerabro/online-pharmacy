@@ -9,22 +9,23 @@ public class Connect
 {
 	private static Connect connect;
     private Connection connection;
-    private final String URL = "jdbc:mysql://localhost:3306/online-pharmacy";
+    private final String URL = "jdbc:mysql://localhost:3306/online-pharmacy?autoReconnect=true&useSSL=false";
     private final String USERNAME = "root";
     private final String PASSWORD = "root";
 
     private Connect() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             System.out.println("Got Connection!");
         } catch (SQLException e) 
         {
             e.printStackTrace();
             System.out.println("Exception: " + e);
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
+        } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     public static Connect getInstance() {
