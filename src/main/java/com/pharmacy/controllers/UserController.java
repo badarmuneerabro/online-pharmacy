@@ -149,10 +149,34 @@ public class UserController
 		
 		return new ModelAndView(new RedirectView("/home", true));
 	}
+	
+	@RequestMapping(value = "/cart", method = RequestMethod.GET)
+	public ModelAndView showCart(HttpSession session)
+	{
+		if(session.getAttribute("user") == null)
+		{
+			new ModelAndView(new RedirectView("/login", true));
+		}
+		System.out.println("User is present");
+		return new ModelAndView("user/cart");
+	}
+	
+	@RequestMapping(value = "/confirm-order", method = RequestMethod.GET)
+	public ModelAndView confirmOrder(HttpSession session)
+	{
+		if(session.getAttribute("user") == null)
+		{
+			new ModelAndView(new RedirectView("/login", true));
+		}
+		
+		session.removeAttribute("cart");
+		session.removeAttribute("total");
+		
+		return new ModelAndView("user/confirmOrder");
+	}
 	public UserService getUserService() {
 		return userService;
 	}
-
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;

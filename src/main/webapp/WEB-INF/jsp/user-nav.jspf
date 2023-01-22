@@ -6,7 +6,7 @@
 		<a class="p-2 text-dark" href="<c:url value="update-profile/${user.email}" />">My profile</a> <a
 			class="p-2 text-dark" href="<c:url value="/home" />">Home</a> <a
 			class="p-2 text-dark" href="<c:url value="/all-products" />">All Products</a> <a
-			class="p-2 text-dark" href="addBlog.jsp">Cart</a>
+			class="p-2 text-dark" href="<c:url value="/cart" />">Cart</a>
 
 	</nav>
 	<a class="btn btn-outline-danger" href="<c:url value="/logout" />">Logout</a>

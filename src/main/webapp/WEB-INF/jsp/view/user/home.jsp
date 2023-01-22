@@ -38,7 +38,7 @@
 			pharmaceutical sciences and natural sciences.</p>
 			
 			<div class="container text-center">
-				<button class="btn btn-outline-danger">Our Products</button>
+				<a href="<c:url value="/all-products" />"><button class="btn btn-outline-danger">Our Products</button></a>
 			</div>
 	</div>
 

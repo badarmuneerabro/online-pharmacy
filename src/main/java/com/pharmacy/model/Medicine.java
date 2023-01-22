@@ -10,8 +10,9 @@ public class Medicine
 	private String company;
 	private String catgory;
 	
-	
-	public Medicine() {
+	private int quantity = 1;
+	public Medicine() 
+	{
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -58,6 +59,12 @@ public class Medicine
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 	
 	

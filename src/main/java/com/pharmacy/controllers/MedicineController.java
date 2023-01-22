@@ -1,5 +1,6 @@
 package com.pharmacy.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -135,11 +136,52 @@ public class MedicineController {
 		{
 			List<Medicine> list = this.medicineService.getAll();
 			model.put("list", list);
-
 			return new ModelAndView("user/allProducts");
 		}
 		
 		return new ModelAndView(new RedirectView("/login", true));
+	}
+	
+	@RequestMapping(value = "/add-to-cart/{id}", method = RequestMethod.GET)
+	public ModelAndView addToCart(@PathVariable("id") int id, HttpSession session)
+	{
+		Medicine medicine = this.medicineService.getMedicineById(id);
+		@SuppressWarnings("unchecked")
+		ArrayList<Medicine> cart = (ArrayList<Medicine>)session.getAttribute("cart");
+		for(int i = 0; i < cart.size(); i++)
+		{
+			Medicine m = cart.get(i);
+			if(m.getId() == id)
+			{
+				cart.get(i).setQuantity(m.getQuantity() + 1);
+				return new ModelAndView(new RedirectView("/all-products", true));
+			}
+		}
+		cart.add(medicine);
+		
+		return new ModelAndView(new RedirectView("/all-products", true));
+	}
+	
+	@RequestMapping(value = "/remove-from-cart/{id}", method = RequestMethod.GET)
+	public ModelAndView removeFromCart(@PathVariable("id") int id, HttpSession session)
+	{
+		ArrayList<Medicine> cart = (ArrayList<Medicine>)session.getAttribute("cart");
+		for(int i = 0; i < cart.size(); i++)
+		{
+			Medicine m = cart.get(i);
+			if(m.getId() == id)
+			{
+				double total = Double.parseDouble(session.getAttribute("total").toString());
+//				total = total - (m.getCost() * m.getQuantity());
+//				System.out.println("total=" + total);
+//				session.setAttribute("total", total);
+				cart.remove(i);
+				break;
+			}
+		}
+		
+		session.setAttribute("cart", cart);
+		return new ModelAndView(new RedirectView("/cart", true));
 	}
 	public MedicineService getMedicineService() {
 		return medicineService;

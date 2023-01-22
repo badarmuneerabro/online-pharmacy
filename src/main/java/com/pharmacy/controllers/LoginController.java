@@ -1,5 +1,7 @@
 package com.pharmacy.controllers;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.pharmacy.model.LoginForm;
+import com.pharmacy.model.Medicine;
 import com.pharmacy.model.User;
 import com.pharmacy.services.UserService;
 
@@ -85,6 +88,7 @@ public class LoginController
 		{
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
+			session.setAttribute("cart", new ArrayList<Medicine>());
 			request.changeSessionId();
 			return new ModelAndView(new RedirectView("/home", true));
 		}

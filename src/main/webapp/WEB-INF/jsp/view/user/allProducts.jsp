@@ -5,6 +5,8 @@
 <title>Online Pharmacy|All Products</title>
 </head>
 <body>
+	<h1 align="center" class="display-1">All Products</h1>
+	<h2 align="center" class="display-3">Let's Shop and be Healthy!</h2>
 	<c:choose>
 		<c:when test="${list.size() == 0 }">
 			<h1>No Products are available.</h1>
@@ -29,13 +31,13 @@
 												<!-- Product name-->
 												<h5 class="fw-bolder">${p.name }</h5>
 												<!-- Product price-->
-												$120.00 - $280.00
+												<c:out value="MYR ${p.cost }" />
 											</div>
 										</div>
 										<!-- Product actions-->
 										<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 											<div class="text-center">
-												<a class="btn btn-outline-dark mt-auto" href="#">Add To
+												<a class="btn btn-outline-dark mt-auto" href="<c:url value="/add-to-cart/${p.id }"/>">Add To
 													Cart</a>
 											</div>
 										</div>
