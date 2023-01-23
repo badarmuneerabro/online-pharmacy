@@ -10,7 +10,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @ComponentScan(basePackages = {"com.pharmacy.services", "com.pharmacy.repos"})
-public class RootContextConfiguration implements WebMvcConfigurer
+public class RootContextConfiguration
 {
 	@Bean
 	public ViewResolver getViewResolver()
@@ -21,8 +21,4 @@ public class RootContextConfiguration implements WebMvcConfigurer
 		
 		return resolver;
 	}
-	
-	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/*").addResourceLocations("/resources/");
-    }
 }

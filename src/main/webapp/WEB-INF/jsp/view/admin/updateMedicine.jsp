@@ -9,8 +9,8 @@
 	
 	<div class="container text-center">
 		<form:form cssClass="form-group" modelAttribute="medicine" action="../update-medicine" method="POST">
-			<form:label path="id">ID: </form:label><br>
-			<form:input path="id" disabled="true"/><br>
+			<form:label path="id" readonly="readonly">ID: </form:label><br>
+			<form:input path="id"/><br>
 			<form:label path="name">Medicine Name: </form:label><br>
 			<form:input cssClass="" path="name"/><br>
 			<form:label path="description">Description: </form:label><br>

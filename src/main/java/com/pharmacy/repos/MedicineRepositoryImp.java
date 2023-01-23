@@ -76,21 +76,23 @@ public class MedicineRepositoryImp implements MedicinRepository
 	public Medicine updateMedicine(Medicine medicine) 
 	{
 		//String query = "UPDATE USER_DETAILS SET FIRST_NAME=?, LAST_NAME=?, ADDRESS=?, PASSWORD=? WHERE EMAIL=?;";
-		String query = "UPDATE medicine SET CATEGORY=?, NAME=?, DESCRIPTION=?, COMPANY=?, COST=? WHERE ID=?;";
+		String query = "UPDATE MEDICINE SET NAME=?, CATEGORY=?, DESCRIPTION=?, COMPANY=?, COST=? WHERE ID=?;";
 		PreparedStatement statement = Connect.getInstance().getPreparedStatement(query);
 		try {
-			statement.setString(1, medicine.getCatgory());
-			statement.setString(2, medicine.getName());
+			statement.setString(1, medicine.getName());
+			statement.setString(2, medicine.getCatgory());
 			statement.setString(3, medicine.getDescription());
 			statement.setString(4, medicine.getCompany());
 			statement.setDouble(5, medicine.getCost());
 			statement.setInt(6, medicine.getId());
+			System.out.println(medicine);
 			statement.executeUpdate();
 			return medicine;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		
 		return null;
 	}

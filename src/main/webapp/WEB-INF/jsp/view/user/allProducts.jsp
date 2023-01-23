@@ -21,10 +21,9 @@
 							<div class="col mb-5">
 
 								<div class="col mb-5">
-									<div class="card h-100">
+									<div class="card h-80">
 										<!-- Product image-->
-										<img class="card-img-top" src="<c:url value="resources/images//medicine.jpg" />"
-											alt="Medicine Image" />
+										<img class="card-header" alt="Medicine Image" src="<c:url value="/images/medicine.jpg" />" />
 										<!-- Product details-->
 										<div class="card-body p-4">
 											<div class="text-center">

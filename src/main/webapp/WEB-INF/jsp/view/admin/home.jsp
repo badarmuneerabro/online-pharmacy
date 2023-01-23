@@ -5,6 +5,6 @@
 <title>Online Pharmacy</title>
 </head>
 <body>
-	<h1>Welcome to Admin Home!</h1>
+	<h1 align="center" class="display-2">Welcome to Admin!</h1>
 </body>
 </html>

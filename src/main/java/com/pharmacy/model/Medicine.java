@@ -66,6 +66,13 @@ public class Medicine
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	@Override
+	public String toString() {
+		return "Medicine [id=" + id + ", name=" + name + ", description=" + description + ", cost=" + cost
+				+ ", company=" + company + ", catgory=" + catgory + ", quantity=" + quantity + "]";
+	}
+	
+	
 	
 	
 }
