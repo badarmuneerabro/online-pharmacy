@@ -30,6 +30,7 @@ public class LoginController
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public View home(HttpSession session)
 	{
+		System.out.println("Inside home method...");
 		User user = (User) session.getAttribute("user");
 		String email = (String) session.getAttribute("email");
 		if(user != null)
@@ -43,7 +44,7 @@ public class LoginController
 			return new RedirectView("/home", true);
 		}
 		
-		return new RedirectView("/login", true);
+		return new RedirectView("/home", true);
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -68,7 +69,7 @@ public class LoginController
 			return new ModelAndView("admin/home");
 		}
 		
-		return new ModelAndView(new RedirectView("/login", true));
+		return new ModelAndView("home");
 	}
 	@RequestMapping(value = "/process-login", method = RequestMethod.POST)
 	public ModelAndView home(HttpServletRequest request, LoginForm loginForm)

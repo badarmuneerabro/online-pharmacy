@@ -14,6 +14,7 @@
 </style>
 </head>
 <body>
+<%@ include file="/WEB-INF/jsp/nav.jspf" %>
 	<main class="primary-background p-5 banner-background">
 		<div class="container">
 			<div col="col-md-6 offset-md-3">

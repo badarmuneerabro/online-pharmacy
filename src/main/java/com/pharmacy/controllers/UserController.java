@@ -96,7 +96,7 @@ public class UserController
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public ModelAndView signupPage(@ModelAttribute("user") UserForm userForm)
 	{
-		return new ModelAndView("user/register");
+		return new ModelAndView("register");
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
