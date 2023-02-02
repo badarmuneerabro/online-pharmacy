@@ -172,9 +172,9 @@ public class MedicineController {
 			if(m.getId() == id)
 			{
 				double total = Double.parseDouble(session.getAttribute("total").toString());
-//				total = total - (m.getCost() * m.getQuantity());
+				total = total - (m.getCost() * m.getQuantity());
 //				System.out.println("total=" + total);
-//				session.setAttribute("total", total);
+				session.setAttribute("total", total);
 				cart.remove(i);
 				break;
 			}

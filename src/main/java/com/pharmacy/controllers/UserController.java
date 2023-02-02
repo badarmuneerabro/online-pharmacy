@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.hibernate.validator.Incubating;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -100,8 +102,12 @@ public class UserController
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ModelAndView register(UserForm userForm)
+	public ModelAndView register(@Valid @ModelAttribute("user") UserForm userForm, BindingResult result)
 	{
+		if(result.hasErrors())
+		{
+			return new ModelAndView("register");
+		}
 		User user = new User();
 		user.setEmail(userForm.getEmail());
 		user.setFirstName(userForm.getFirstName());
@@ -157,23 +163,9 @@ public class UserController
 		{
 			new ModelAndView(new RedirectView("/login", true));
 		}
-		System.out.println("User is present");
 		return new ModelAndView("user/cart");
 	}
 	
-	@RequestMapping(value = "/confirm-order", method = RequestMethod.GET)
-	public ModelAndView confirmOrder(HttpSession session)
-	{
-		if(session.getAttribute("user") == null)
-		{
-			new ModelAndView(new RedirectView("/login", true));
-		}
-		
-		session.removeAttribute("cart");
-		session.removeAttribute("total");
-		
-		return new ModelAndView("user/confirmOrder");
-	}
 	public UserService getUserService() {
 		return userService;
 	}

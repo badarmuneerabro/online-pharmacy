@@ -1,8 +1,12 @@
 package com.pharmacy.model;
 
+import javax.validation.constraints.NotBlank;
+
 public class LoginForm 
 {
+	@NotBlank(message = "*Email can not be blank.")
 	private String email;
+	@NotBlank(message = "*Password is required")
 	private String password;
 	
 	

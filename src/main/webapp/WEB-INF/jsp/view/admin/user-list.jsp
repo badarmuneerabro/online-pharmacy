@@ -6,7 +6,6 @@
 </head>
 <body>
 	<h1 align="center">View All Users</h1>
-	<c:out value="${list.size() }"></c:out>
 	<c:choose>
 		<c:when test="${list.size() == 0 }">
 			<h2 class="text-center mt-2">No Users Are Available</h2>

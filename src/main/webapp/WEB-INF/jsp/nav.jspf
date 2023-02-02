@@ -11,7 +11,7 @@
                 <a href="#" class="nav-item nav-link text-white" tabindex="-1">Contact Us</a>
             </div>
             <div class="navbar-nav ms-auto">
-                <a href="#" class="nav-item nav-link text-white">Login</a>
+                <a href="<c:url value="/login" />" class="nav-item nav-link text-white">Login</a>
             </div>
         </div>
     </div>

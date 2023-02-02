@@ -30,34 +30,40 @@
 						<div class="form-group">
 							<form:label path="email">Email</form:label>
 							<form:input cssClass="form-control col-xs-4" path="email" />
+							<form:errors cssClass="text-danger" path="email"/>
 						</div>
 
 						<div class="form-group">
 							<form:label path="firstName">First Name</form:label>
 							<form:input cssClass="form-control" path="firstName" />
+							<form:errors cssClass="text-danger" path="firstName"/>
 						</div>
 
 						<div>
 							<form:label path="lastName">Last Name</form:label>
 							<form:input path="lastName" cssClass="form-control" />
+							<form:errors cssClass="text-danger" path="lastName"/>
 						</div>
 
 						<div>
 							<form:label path="password">Password: </form:label>
 							<form:password path="password" cssClass="form-control" />
+							<form:errors cssClass="text-danger" path="password"/>
 						</div>
 
 						<div>
 							<form:label path="address">Address</form:label><br>
 							<form:textarea path="address" />
+							<form:errors cssClass="text-danger" path="address"/>
 						</div>
 						
 						<div class="text-center container">
 							<button type="submit" class="btn btn-outline-dark">Submit</button>
 						</div>
+						
+						Already have an account?<a href="<c:url value="/login" />">Login</a>
 					</form:form>
-
-					
+										
 				</div>
 			</div>
 		</div>

@@ -1,11 +1,20 @@
 package com.pharmacy.model;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+
 public class UserForm 
 {
+	@NotBlank(message = "*Email can not be blank")
 	private String email;
+	@NotBlank(message = "*Frist name can not be blank")
 	private String firstName;
+	@NotBlank(message = "*Last name can not be blank")
 	private String lastName;
+	@NotBlank(message = "*Address is required")
 	private String address;
+	@NotBlank(message = "*Password is required")
+	@Min(value = 5, message = "*Password must have at least 5 characters")
 	private String password;
 	
 	public UserForm()
